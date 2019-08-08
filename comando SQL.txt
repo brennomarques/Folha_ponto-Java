@@ -1,0 +1,165 @@
+delete from pessoa where dataadmissao = '';
+ALTER TABLE pessoa ALTER COLUMN nome SET NOT NULL
+
+ALTER TABLE PESSOA ADD COLUMN SENHA SERIAL;
+
+select *from pessoa
+select matricula, nome, senha from pessoa where matricula = '12345';
+select matricula, nome, status from pessoa order by nome
+
+Select Max(CLI_CODIGO) from tabcliente
+
+Select Min(CLI_CODIGO) from tabcliente
+
+alter table pessoa add constraint foreign key (ID) references cargo(ID);
+
+
+SELECT * FROM tabLogUsuario
+WHERE datCadastro BETWEEN '2011-01-10' AND '2011-01-12'
+http://www.guj.com.br/t/comando-select-para-selecionar-intervalo-de-data-sql-server/82169
+
+
+INSERT INTO TESTE (MATRICULA, NOME, dataentrada, datasaida)
+    VALUES ('2332', 'RONALDA DA SILVA', '01/05/2018', '05/05/2018');
+
+INSERT INTO TESTETEMPO(MATRICULA, NOME, HORAENTRADA, HORASAIDA)
+    VALUES ('2331', 'SILVA', '12:00:00', '18:00:00');
+
+SELECT MATRICULA, NOME, HORAENTRADA, HORASAIDA FROM TESTETEMPO
+
+WHERE HORAENTRADA BETWEEN '12:00:00' AND CURRENT_TIME;
+
+SELECT HORAENTRADA, HORASAIDA, HORASAIDA - HORAENTRADA DIFERENCA FROM TESTETEMPO;
+    
+
+CONSTRAINT pessoa_pkey PRIMARY KEY (matricula)
+
+CREATE TABLE TESTE(
+	MATRICULA INTEGER NOT NULL,
+	NOME VARCHAR(30),
+	DATAENTRADA DATE,
+	DATASAIDA DATE,
+	PRIMARY KEY (matricula)
+);
+
+SELECT * FROM TESTE
+
+WHERE   DATASAIDA = CURRENT_DATE;
+
+SELECT COUNT(DATADIA)FROM PONTOS
+WHERE CAST(datadia AS Date) = current_date
+
+SELECT COUNT(*)
+FROM PESSOA
+INNER JOIN PONTOS
+ON PESSOA.MATRICULA = PONTOS.MATRICULA 
+
+
+2004-10-19 10:26:54
+
+https://www.devmedia.com.br/introducao-ao-sql-data-e-hora/17005
+
+
+
+CREATE TABLE pontos(
+	MATRICULA INTEGER NOT NULL,
+	DATADIA TIMESTAMP,
+	CONSTRAINT CHAVE_PRIMARIA_COMPOSTA PRIMARY KEY (matricula, datadia),
+	CONSTRAINT CHAVE_PRIMARIA foreign key (matricula) references pessoa(matricula)
+);
+
+select pessoa.matricula, pessoa.nome, pontos.datadia from pessoa join pontos
+on pontos.matricula = pessoa.matricula;
+
+select pessoa.matricula, pessoa.nome, pontos.datadia from pessoa, pontos\n"
+                            + "WHERE pontos.matricula = pessoa.matricula order by pessoa.nome");
+
+
+SELECT * FROM pontos WHERE CAST(datadia AS Date) = '2018-07-16';
+SELECT *FROM pontos WHERE CAST(datadia AS Date) = current_date
+
+
+SELECT PESSOA.MATRICULA, PESSOA.NOME, PONTOS.DATADIA
+FROM PESSOA
+INNER JOIN PONTOS
+ON PESSOA.MATRICULA = PONTOS.MATRICULA 
+WHERE CAST(datadia AS Date) = current_date
+
+SELECT extract(DAY FROM TIMESTAMP '2018-07-20 11:31:17.196');
+https://www.devmedia.com.br/trabalhando-com-tipo-datetime-somando-e-subtraindo-horas/23057
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+SELECT PESSOA.MATRICULA, PESSOA.NOME, PONTOS.DATADIA
+FROM PESSOA
+INNER JOIN PONTOS
+ON PESSOA.MATRICULA = PONTOS.MATRICULA 
+WHERE CAST(datadia AS Date) Between '2018-07-01' AND '2018-07-30'
+
+COPY
+(
+SELECT matricula, nome, dataentrada, datasaida FROM teste
+)
+TO 'C:/temp/export.txt'
+DELIMITER ';'
+CSV HEADER
+
+
+SELECT * FROM tabela WHERE id % 2 = 0
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+SELECT PESSOA.MATRICULA, PESSOA.NOME, PONTOS.DATADIA
+FROM PESSOA
+INNER JOIN PONTOS
+ON PESSOA.MATRICULA = PONTOS.MATRICULA AND PESSOA.MATRICULA = 1313
+WHERE CAST(datadia AS Date) = '2018-12-12';
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+##BATIDA MENSAL POR MATRICULAR
+
+SELECT PESSOA.MATRICULA, PESSOA.NOME, PONTOS.DATADIA
+FROM PESSOA
+INNER JOIN PONTOS
+ON PESSOA.MATRICULA = PONTOS.MATRICULA AND PESSOA.MATRICULA = 1212
+WHERE CAST(datadia AS Date) Between '2019-03-08' AND '2019-03-08'
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SELECT COUNT(*)
+FROM PESSOA
+INNER JOIN PONTOS
+ON PESSOA.MATRICULA = PONTOS.MATRICULA AND PESSOA.MATRICULA = 1313
+WHERE CAST(datadia AS Date) Between '2019-03-08' AND '2019-03-08'
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+SELECT CURRENT_DATE AS data; -- data hoje
+SELECT CURRENT_DATE + integer '1' AS data; -- data de amanhã
+SELECT CURRENT_DATE - integer '1' AS data; -- data de ontem
+SELECT CURRENT_DATE - date '2018-12-31' AS dias; -- quantidade de dias desde o começo de 2019
+SELECT (CURRENT_DATE + INTERVAL '1 months')::timestamp::date AS data; -- data atual mais um mês
+SELECT (CURRENT_DATE + INTERVAL '1 years')::timestamp::date AS data; -- data atual mais um ano
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+SELECT PESSOA.MATRICULA, PESSOA.NOME, PONTOS.DATADIA
+FROM PESSOA
+INNER JOIN PONTOS
+ON PESSOA.MATRICULA = PONTOS.MATRICULA AND PESSOA.MATRICULA = 1212
+WHERE CAST(datadia AS Date) Between '2019-03-08' AND '2019-03-08'
+
+SELECT PESSOA.MATRICULA, PESSOA.NOME, PONTOS.DATADIA
+FROM PESSOA
+INNER JOIN PONTOS
+ON PESSOA.MATRICULA = PONTOS.MATRICULA
+WHERE CAST(datadia AS Date) Between '2019-03-08' AND '2019-03-08'
+WHERE (SELECT COUNT (matricula)); 
+
+
+
+
+WHERE F.SALARIO = (SELECT MAX(SALARIO) FROM FUNCIONARIOS FF, DEPARTAMENTOS DD
+WHERE FF.ID_DEPARTAMENTO = DD.ID_DEPARTAMENTO
+AND DD.ID_DEPARTAMENTO = F.ID_DEPARTAMENTO);
+
+SELECT PRIMEIRO_NOME, ULTIMO_NOME, DATEDIFF(YEAR, DATA_ADMISSAO, GETDATE()) 
+AS ANOS DE EMPRESA
+FROM FUNCIONARIOS F INNER JOIN DEPARTAMENTOS D 
+ON F.ID_DEPARTAMENTO = D.ID_DEPARTAMENTO
+WHERE F.SALARIO = (SELECT MAX(SALARIO) FROM FUNCIONARIOS FF, DEPARTAMENTOS DD
+WHERE FF.ID_DEPARTAMENTO = DD.ID_DEPARTAMENTO
+AND DD.ID_DEPARTAMENTO = F.ID_DEPARTAMENTO);
